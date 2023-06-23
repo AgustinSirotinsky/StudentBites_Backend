@@ -90,3 +90,8 @@ app.post('/login',async (req, res) => {
 })
 
 //Reseñas
+
+app.get('/resenias',async (req,res) =>{
+    const ReseñasGetAll = await svcReseña.getAll();
+    return res.status(200).json(ReseñasGetAll)
+})
