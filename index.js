@@ -1,12 +1,9 @@
 import express from "express";
+import bodyParser from "body-parser"
 
 import LocalService from './src/services/local-services.js'
 import UsuarioService from "./src/services/usuario-services.js";
 import ReseñaService from "./src/services/reseña-services.js";
-
-import Local from './src/models/Local.js'
-import Usuario from './src/models/Usuario.js'
-import Reseña from './src/models/Reseña.js'
 
 const svcLocal=new LocalService();
 const svcUsuario=new UsuarioService();
@@ -14,6 +11,9 @@ const svcReseña=new ReseñaService();
 
 const app= express();
 const port= 3000;
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req,res)=>{
     res.send('StudentBites');
@@ -69,6 +69,23 @@ app.get('/usuario/:id',async (req,res) =>{
         return res.status(404).send('Usuario inexistente')
     } else {
         return res.status(200).json(UsuariosGetById)
+    }
+})
+
+app.post('/login',async (req, res) => {
+    let data = req.body;
+    let Usuario=null;
+    if (data.email==null || data.password==null){
+        res.send("Mail o Password Null")
+    }
+    else {
+        Usuario=await svcUsuario.auth(data)
+    }
+        if (Usuario.length==0){
+        return res.status(404).send('Error en la autenticacion')
+    }
+    else {
+        return res.status(200).json(Usuario)
     }
 })
 

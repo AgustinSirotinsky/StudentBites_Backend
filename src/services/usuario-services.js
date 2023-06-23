@@ -15,6 +15,7 @@ getAll = async () => {
     }
     return returnArray;
     }
+
 getById = async (id) => {
     let returnEntity=null;
     console.log('Estoy en UsuarioService.getById()');
@@ -23,6 +24,23 @@ getById = async (id) => {
         let result = await pool.request()
             .input('pId', sql.Int, id)
             .query('SELECT * FROM Usuario WHERE id = @pId');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+}
+
+auth = async (data) => {
+    let returnEntity=null;
+    console.log('Estoy en UsuarioService.auth()');
+    try {
+        let pool=await sql.connect(config);
+        let result = await pool.request()
+            .input('pEmail', sql.VarChar, data.email)
+            .input('pPassword', sql.VarChar, data.password)
+            .query('SELECT * FROM Usuario WHERE Email = @pEmail AND Contraseña = @pPassword');
         returnEntity = result.recordsets[0];
     }
     catch (error){
