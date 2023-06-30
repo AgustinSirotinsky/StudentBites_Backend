@@ -48,5 +48,21 @@ getByLocal = async (local) => {
     return returnEntity;
 }
 
+getByUsuario = async (usuario) => {
+    let returnEntity=null;
+    console.log('Estoy en ReseñaService.getByUsuario()');
+    try {
+        let pool=await sql.connect(config);
+        let result = await pool.request()
+            .input('pUsuarioId', sql.Int, usuario)
+            .query('SELECT IDSeguidos FROM Reseña WHERE UsuarioID = @pUsuarioId');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+}
+
 }
 export default ReseñaService

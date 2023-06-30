@@ -119,3 +119,13 @@ app.get('/resenia/local/:localId',async (req,res) =>{
         return res.status(200).json(ReseñasGetByLocal)
     }
 })
+
+app.get('/resenia/usuario/:usuarioId',async (req,res) =>{
+    const ReseñasGetByUsuario = await svcReseña.getByUsuario(req.params['usuarioId']);
+    if (ReseñasGetByUsuario.length == 0) {
+        return res.status(404).send('Reseña/s inexistente')
+    } else {
+        console.log(ReseñasGetByUsuario.length)
+        return res.status(200).json(ReseñasGetByUsuario)
+    }
+})

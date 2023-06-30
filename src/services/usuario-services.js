@@ -62,6 +62,7 @@ getSeguidos = async (idUsuario) => {
     catch (error){
         console.log(error)
     }
+    console.log(returnEntity);
     return returnEntity;
 }
 
