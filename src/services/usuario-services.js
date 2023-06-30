@@ -48,5 +48,22 @@ auth = async (data) => {
     }
     return returnEntity;
 }
+
+getSeguidos = async (idUsuario) => {
+    let returnEntity=null;
+    console.log('Estoy en UsuarioService.getSeguidos()');
+    try {
+        let pool=await sql.connect(config);
+        let result = await pool.request()
+            .input('pidUsuario', sql.Int, idUsuario)
+            .query('SELECT * FROM SeguidosXUsuario WHERE IDUsuario=@pidUsuario');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
 }
+
+} 
 export default UsuarioService;

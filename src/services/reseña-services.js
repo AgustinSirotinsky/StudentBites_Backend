@@ -16,5 +16,37 @@ getAll = async () => {
     return returnArray;
     }
 
+getById = async (id) => {
+    let returnEntity=null;
+    console.log('Estoy en ReseñaService.getById()');
+    try {
+        let pool=await sql.connect(config);
+        let result = await pool.request()
+            .input('pId', sql.Int, id)
+            .query('SELECT * FROM Reseña WHERE id = @pId');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+}
+
+getByLocal = async (local) => {
+    let returnEntity=null;
+    console.log('Estoy en ReseñaService.getByLocal()');
+    try {
+        let pool=await sql.connect(config);
+        let result = await pool.request()
+            .input('plocalId', sql.Int, local)
+            .query('SELECT * FROM Reseña WHERE LocalID = @plocalId');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+}
+
 }
 export default ReseñaService

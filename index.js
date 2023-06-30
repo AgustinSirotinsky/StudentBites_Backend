@@ -44,10 +44,6 @@ app.get('/locales/stars',async (req,res) =>{
     return res.status(200).json(LocalesGetStars)
 })
 
-// app.get('locales/insert',async (req,res) =>{
-
-// })
-
 app.get('/local/:id',async (req,res) =>{
     const LocalGetById = await svcLocal.getById(req.params['id']);
     if (LocalGetById.length == 0) {
@@ -72,9 +68,19 @@ app.get('/usuario/:id',async (req,res) =>{
     }
 })
 
+app.get('/usuario/seguidos/:id',async (req,res) =>{
+    const UsuariosGetSeguidos = await svcUsuario.getSeguidos(req.params['id']);
+    if (UsuariosGetSeguidos.length == 0) {
+        return res.status(404).send('Usuario inexistente')
+    } else {
+        return res.status(200).json(UsuariosGetSeguidos)
+    }
+})
+
 app.post('/login',async (req, res) => {
     let data = req.body;
     let Usuario=null;
+        //Es necesario que el post tenga en el body "email" y "password", si no se llaman asi exactamente la api da error y se cae
     if (data.email==null || data.password==null){
         res.send("Mail o Password Null")
     }
@@ -94,4 +100,22 @@ app.post('/login',async (req, res) => {
 app.get('/resenias',async (req,res) =>{
     const ReseñasGetAll = await svcReseña.getAll();
     return res.status(200).json(ReseñasGetAll)
+})
+
+app.get('/resenia/:id',async (req,res) =>{
+    const ReseñasGetAll = await svcReseña.getById(req.params['id']);
+    if (ReseñasGetAll.length == 0) {
+        return res.status(404).send('Reseña inexistente')
+    } else {
+        return res.status(200).json(ReseñasGetAll)
+    }
+})
+
+app.get('/resenia/local/:localId',async (req,res) =>{
+    const ReseñasGetByLocal = await svcReseña.getByLocal(req.params['localId']);
+    if (ReseñasGetByLocal.length == 0) {
+        return res.status(404).send('Reseña/s inexistente')
+    } else {
+        return res.status(200).json(ReseñasGetByLocal)
+    }
 })
