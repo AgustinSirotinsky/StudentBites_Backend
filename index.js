@@ -1,5 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser"
+import cors from 'cors'
+import jwtservice from "./middleware/middleware.js"
 
 import LocalService from './src/services/local-services.js'
 import UsuarioService from "./src/services/usuario-services.js";
@@ -9,8 +11,11 @@ const svcLocal=new LocalService();
 const svcUsuario=new UsuarioService();
 const svcReseña=new ReseñaService();
 
-const app= express();
-const port= 3000;
+const app = express();
+app.use(cors());
+app.use(express.json());
+const port = 3000;
+const auth = new jwtservice()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
