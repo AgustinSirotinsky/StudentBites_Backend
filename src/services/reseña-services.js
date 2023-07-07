@@ -55,7 +55,7 @@ getByUsuario = async (usuario) => {
         let pool=await sql.connect(config);
         let result = await pool.request()
             .input('pUsuarioId', sql.Int, usuario)
-            .query('SELECT IDSeguidos FROM Reseña WHERE UsuarioID = @pUsuarioId');
+            .query('SELECT * FROM Reseña WHERE UsuarioID = @pUsuarioId');
         returnEntity = result.recordsets[0];
     }
     catch (error){
