@@ -74,6 +74,19 @@ getStars = async () => {
     }
     return returnArray;
     }
+getOrderPoblacion = async () => {
+    let returnArray = null;
+    console.log('Estoy en LocalService.getStars()');
+    try {
+        let pool = await sql.connect(config);
+       let result = await pool.request().query("SELECT * FROM Local Order By Poblacion");
+       returnArray = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnArray;
+    }
 
 insert = async (Local) => {
     let rowsAffected = 0;
