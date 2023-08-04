@@ -20,7 +20,7 @@ getById = async (id) => {
     let returnEntity=null;
     console.log('Estoy en UsuarioService.getById()');
     try {
-        let pool=await sql.connect(config);
+        let pool = await sql.connect(config);
         let result = await pool.request()
             .input('pId', sql.Int, id)
             .query('SELECT * FROM Usuario WHERE id = @pId');
@@ -36,7 +36,7 @@ auth = async (data) => {
     let returnEntity=null;
     console.log('Estoy en UsuarioService.auth()');
     try {
-        let pool=await sql.connect(config);
+        let pool = await sql.connect(config);
         let result = await pool.request()
             .input('pEmail', sql.VarChar, data.email)
             .input('pPassword', sql.VarChar, data.password)
@@ -49,11 +49,28 @@ auth = async (data) => {
     return returnEntity;
 }
 
+create = async (data) => {
+    let returnEntity=null;
+    console.log('Estoy en UsuarioService.Update()');
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request()
+            .input('pEmail', sql.VarChar, data.Email)
+            .input('pUsuario', sql.VarChar, data.Usuario)
+            .input('pContraseña', sql.VarChar, data.Contraseña)
+            .input('pFoto', sql.VarChar, data.Foto)
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+}
+
 getSeguidos = async (idUsuario) => {
     let returnEntity=null;
     console.log('Estoy en UsuarioService.getSeguidos()');
     try {
-        let pool=await sql.connect(config);
+        let pool = await sql.connect(config);
         let result = await pool.request()
             .input('pidUsuario', sql.Int, idUsuario)
             .query('SELECT * FROM SeguidosXUsuario WHERE IDUsuario=@pidUsuario');

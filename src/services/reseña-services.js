@@ -64,27 +64,28 @@ getByUsuario = async (usuario) => {
     return returnEntity;
 }
 
-Insert = async (reseña) => {
+insert = async (data) => {
     //Poblacion y tardanza van a ser int Baja:1 Media:2 Alta:3 Muy Alta:4 despues vamos a hacer un promedio y mostrar como string
-    let rowsAffected = 0;
+    let returnEntity = null;
     console.log('Estoy en: ReseñaService.Insert()');
 
     try {
         let pool = await sql.connect(config);
         let result = await pool.request()
-            .input('pUsuarioId', sql.Int, reseña?.UsuarioId ?? 0)
-            .input('pLocalId', sql.Int, reseña?.LocalId ?? 0)
-            .input('pImagen', sql.VarChar, reseña?.Imagen ?? '')
-            .input('pCalificacion', sql.Int, reseña?.Calificacion ?? 0)
-            .input('pComidaId', sql.Int, reseña?.ComidaId ?? 0)
-            .input('pPrecio', sql.Int, reseña?.Precio ?? 0)
-            .input('pTardanza', sql.Int, reseña?.Tardanza ?? 0)
-            .input('pPoblacion', sql.Int, reseña?.Poblacion ?? 0)
-            .input('pDescripcion', sql.VarChar, reseña?.Descripcion ?? 0)
+            .input('pUsuarioId', sql.Int, data?.UsuarioId ?? 0)
+            .input('pLocalId', sql.Int, data?.LocalId ?? 0)
+            .input('pImagen', sql.VarChar, data?.Imagen ?? '')
+            .input('pCalificacion', sql.Int, data?.Calificacion ?? 0)
+            .input('pComidaId', sql.Int, data?.ComidaId ?? 0)
+            .input('pPrecio', sql.Int, data?.Precio ?? 0)
+            .input('pTardanza', sql.Int, data?.Tardanza ?? 0)
+            .input('pPoblacion', sql.Int, data?.Poblacion ?? 0)
+            .input('pDescripcion', sql.VarChar, data?.Descripcion ?? 0)
 
             .query('INSERT INTO Reseña (UsuarioId,LocalId,Imagen,Calificacion,ComidaId,Precio,Tardanza,Poblacion,Descripcion) VALUES (@pUsuarioId,@pLocalId,@pImagen,@pCalificacion,@pComidaId,@pPrecio,@pTardanza,@pPoblacion,@pDescripcion)')
-        rowsAffected = result.rowsAffected;
-    } catch (error) {
+        returnEntity = result.recordsets[0];
+    }
+    catch (error) {
         console.log(error);
     }
     return rowsAffected;

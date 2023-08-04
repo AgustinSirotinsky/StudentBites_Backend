@@ -100,6 +100,7 @@ app.post('/login',async (req, res) => {
     }
 })
 
+
 //Reseñas
 
 app.get('/resenias',async (req,res) =>{
@@ -133,5 +134,22 @@ app.get('/resenia/usuario/:usuarioId',async (req,res) =>{
     } else {
         console.log(ReseñasGetByUsuario.length)
         return res.status(200).json(ReseñasGetByUsuario)
+    }
+})
+
+app.post('/resenias/insert', async (req, res) => {
+    let data = req.body;
+    let Reseña=null;
+    if (data.UsuarioId==null || data.LocalId==null || data.Imagen==null || data.Calificacion==null || data.ComidaId==null || data.Precio==null || data.Tardanza==null || data.Poblacion==null || data.Descripcion==null){
+        res.send("undefined")
+    }
+    else {
+        Reseña=await svcReseña.insert(data)
+    }
+    if (Reseña.length==0){
+        return res.status(404).send('Error!!')
+    }
+    else{
+        return res.status(200).send(Reseña)
     }
 })
