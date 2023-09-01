@@ -140,7 +140,7 @@ app.get('/resenia/usuario/:usuarioId',async (req,res) =>{
 app.post('/resenias/insert', async (req, res) => {
     let data = req.body;
     let Reseña=null;
-    if (data.UsuarioId==null || data.LocalId==null || data.Imagen==null || data.Calificacion==null || data.ComidaId==null || data.Precio==null || data.Tardanza==null || data.Poblacion==null || data.Descripcion==null){
+    if (data.UsuarioId==null || data.LocalId==null || data.Calificacion==null || data.ComidaId==null || data.Precio==null || data.Tardanza==null || data.Poblacion==null || data.Descripcion==null){
         res.send("undefined")
     }
     else {
@@ -152,4 +152,9 @@ app.post('/resenias/insert', async (req, res) => {
     else{
         return res.status(200).send(Reseña)
     }
+})
+
+app.get('/tipodecomida',async (req,res) =>{
+    const ComidaGetAll = await svcReseña.getAllComida();
+    return res.status(200).json(ComidaGetAll)
 })

@@ -2,7 +2,6 @@ class Reseña {
     ID;
     UsuarioID;
     LocalID;
-    Imagen;
     Calificacion;
     ComidaID;
     Precio;
