@@ -74,7 +74,6 @@ insert = async (data) => {
         let result = await pool.request()
             .input('pUsuarioId', sql.Int, data?.UsuarioId ?? 0)
             .input('pLocalId', sql.Int, data?.LocalId ?? 0)
-            .input('pImagen', sql.VarChar, data?.Imagen ?? '')
             .input('pCalificacion', sql.Int, data?.Calificacion ?? 0)
             .input('pComidaId', sql.Int, data?.ComidaId ?? 0)
             .input('pPrecio', sql.Int, data?.Precio ?? 0)
@@ -82,7 +81,7 @@ insert = async (data) => {
             .input('pPoblacion', sql.Int, data?.Poblacion ?? 0)
             .input('pDescripcion', sql.VarChar, data?.Descripcion ?? 0)
 
-            .query('INSERT INTO Reseña (UsuarioId,LocalId,Imagen,Calificacion,ComidaId,Precio,Tardanza,Poblacion,Descripcion) VALUES (@pUsuarioId,@pLocalId,@pImagen,@pCalificacion,@pComidaId,@pPrecio,@pTardanza,@pPoblacion,@pDescripcion)')
+            .query('INSERT INTO Reseña (UsuarioId,LocalId,Calificacion,ComidaId,Precio,Tardanza,Poblacion,Descripcion) VALUES (@pUsuarioId,@pLocalId,@pCalificacion,@pComidaId,@pPrecio,@pTardanza,@pPoblacion,@pDescripcion)')
         returnEntity = result.recordsets[0];
     }
     catch (error) {
@@ -91,5 +90,19 @@ insert = async (data) => {
     return rowsAffected;
 }
 
+getAllComida = async () => {
+    let returnArray = null;
+    console.log('Estoy en ReseñaService.getAllComida()');
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query("SELECT * FROM TipoDeComida");
+        returnArray = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnArray;
+    }
 }
+
 export default ReseñaService
