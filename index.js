@@ -146,12 +146,7 @@ app.post('/resenias/insert', async (req, res) => {
     else {
         Reseña=await svcReseña.insert(data)
     }
-    if (Reseña.length==0){
-        return res.status(404).send('Error!!')
-    }
-    else{
         return res.status(200).send(Reseña)
-    }
 })
 
 app.get('/tipodecomida',async (req,res) =>{

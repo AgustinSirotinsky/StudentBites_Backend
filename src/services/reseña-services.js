@@ -83,11 +83,12 @@ insert = async (data) => {
 
             .query('INSERT INTO Reseña (UsuarioId,LocalId,Calificacion,ComidaId,Precio,Tardanza,Poblacion,Descripcion) VALUES (@pUsuarioId,@pLocalId,@pCalificacion,@pComidaId,@pPrecio,@pTardanza,@pPoblacion,@pDescripcion)')
         returnEntity = result.recordsets[0];
+        console.log(returnEntity)
     }
     catch (error) {
         console.log(error);
     }
-    return rowsAffected;
+    return returnEntity;
 }
 
 getAllComida = async () => {
