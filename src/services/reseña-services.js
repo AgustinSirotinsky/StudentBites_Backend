@@ -67,7 +67,7 @@ getByUsuario = async (usuario) => {
 insert = async (data) => {
     //Poblacion y tardanza van a ser int Baja:1 Media:2 Alta:3 Muy Alta:4 despues vamos a hacer un promedio y mostrar como string
     let returnEntity = null;
-    console.log('Estoy en: ReseñaService.Insert()');
+    console.log('Estoy en ReseñaService.Insert()');
 
     try {
         let pool = await sql.connect(config);
@@ -83,7 +83,6 @@ insert = async (data) => {
 
             .query('INSERT INTO Reseña (UsuarioId,LocalId,Calificacion,ComidaId,Precio,Tardanza,Poblacion,Descripcion) VALUES (@pUsuarioId,@pLocalId,@pCalificacion,@pComidaId,@pPrecio,@pTardanza,@pPoblacion,@pDescripcion)')
         returnEntity = result.recordsets[0];
-        console.log(returnEntity)
     }
     catch (error) {
         console.log(error);
