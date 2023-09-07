@@ -100,6 +100,18 @@ app.post('/login',async (req, res) => {
     }
 })
 
+app.post('/usuario/insert', async (req, res) => {
+    let data = req.body;
+    let Usuario=null;
+    if (Email == null || Usuario == null || Contraseña == null || Foto == null){
+        res.send("undefined")
+    }
+    else {
+        Usuario=await svcUsuario.create(data)
+    }
+        return res.status(200).json('Usuario creado')
+})
+
 
 //Reseñas
 

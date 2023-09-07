@@ -49,9 +49,9 @@ auth = async (data) => {
     return returnEntity;
 }
 
-create = async (data) => {
+insert = async (data) => {
     let returnEntity=null;
-    console.log('Estoy en UsuarioService.Update()');
+    console.log('Estoy en UsuarioService.insert()');
     try {
         let pool = await sql.connect(config);
         let result = await pool.request()
@@ -59,6 +59,7 @@ create = async (data) => {
             .input('pUsuario', sql.VarChar, data.Usuario)
             .input('pContraseña', sql.VarChar, data.Contraseña)
             .input('pFoto', sql.VarChar, data.Foto)
+            .query('INSERT INTO Usuario (Email,Usuario,Contraseña,Foto,isBanned) VALUES (@pEmail, @pUsuario, @pContraseña, @pFoto, 0)')
     }
     catch (error){
         console.log(error)
