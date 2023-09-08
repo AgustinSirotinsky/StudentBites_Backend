@@ -90,6 +90,29 @@ insert = async (data) => {
     return returnEntity;
 }
 
+update = async (data) => {
+    let returnEntity=null;
+    console.log('Estoy en ReseñaService.update()');
+
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request()
+            .input('pID', sql.Int, data?.ID ?? 0)
+            .input('pCalificacion', sql.Int, data?.Calificacion ?? 0)
+            .input('pComidaId', sql.Int, data?.ComidaId ?? 0)
+            .input('pPrecio', sql.Int, data?.Precio ?? 0)
+            .input('pTardanza', sql.Int, data?.Tardanza ?? 0)
+            .input('pPoblacion', sql.Int, data?.Poblacion ?? 0)
+            .input('pDescripcion', sql.VarChar, data?.Descripcion ?? 0)
+            .query('UPDATE Reseña SET Calificacion=@pCalificacion,ComidaId=@pComidaId,Precio=@pPrecio,Tardanza=@pTardanza,Poblacion=@pPoblacion,Descripcion=@pDescripcion WHERE ID=@pID');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+}
+
 getAllComida = async () => {
     let returnArray = null;
     console.log('Estoy en ReseñaService.getAllComida()');

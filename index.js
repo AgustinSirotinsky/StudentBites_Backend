@@ -103,11 +103,11 @@ app.post('/login',async (req, res) => {
 app.post('/usuario/insert', async (req, res) => {
     let data = req.body;
     let Usuario=null;
-    if (Email == null || Usuario == null || Contraseña == null || Foto == null){
+    if (data.Email == null || data.Usuario == null || data.Contraseña == null || data.Foto == null){
         res.send("undefined")
     }
     else {
-        Usuario=await svcUsuario.create(data)
+        Usuario=await svcUsuario.insert(data)
     }
         return res.status(200).json('Usuario creado')
 })
@@ -159,6 +159,19 @@ app.post('/resenias/insert', async (req, res) => {
         Reseña=await svcReseña.insert(data)
     }
         return res.status(200).json('Reseña insertada')
+})
+
+app.post('/resenias/update', async (req, res) => {
+    let data = req.body;
+    let Reseña=null;
+    if (data.Calificacion==null || data.ComidaId==null || data.Precio==null || data.Tardanza==null || data.Poblacion==null || data.Descripcion==null || data.ID==null){
+        res.send("undefined")
+        console.log(data)
+    }
+    else {
+        Reseña=await svcReseña.update(data)
+    }
+        return res.status(200).json(Reseña)
 })
 
 app.get('/tipodecomida',async (req,res) =>{
