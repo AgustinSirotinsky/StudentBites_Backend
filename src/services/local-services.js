@@ -112,5 +112,48 @@ insert = async (Local) => {
     return rowsAffected;
 }
 
+orderByPrecio = async () => {
+    let returnArray = null;
+    console.log('Estoy en LocalService.orderByPrecio()');
+    try {
+        let pool = await sql.connect(config);
+       let result = await pool.request().query("SELECT * FROM Local Order By Precio");
+       returnArray = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnArray;
+    }
+
+orderByDistancia = async () => {
+    let returnArray = null;
+    console.log('Estoy en LocalService.orderByDistancia()');
+    try {
+        let pool = await sql.connect(config);
+       let result = await pool.request().query("SELECT * FROM Local Order By Distancia");
+       returnArray = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnArray;
+    }
+
+orderByCalificacion = async () => {
+    let returnArray = null;
+    console.log('Estoy en LocalService.orderByCalificacion()');
+    try {
+        let pool = await sql.connect(config);
+       let result = await pool.request().query("SELECT * FROM Local Order By Calificacion");
+       returnArray = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnArray;
+    }
+
+
 }
 export default LocalService

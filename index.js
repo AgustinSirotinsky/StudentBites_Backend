@@ -58,6 +58,21 @@ app.get('/local/:id',async (req,res) =>{
     }
 })
 
+app.get('/locales/orderByPrecio',async (req,res) =>{
+    const LocalesOrderByPrecio = await svcLocal.orderByPrecio();
+    return res.status(200).json(LocalesOrderByPrecio)
+})
+
+app.get('/locales/orderByDistancia',async (req,res) =>{
+    const LocalesOrderByDistancia = await svcLocal.orderByDistancia();
+    return res.status(200).json(LocalesOrderByDistancia)
+})
+
+app.get('/locales/orderByCalificacion',async (req,res) =>{
+    const LocalesOrderByCalificacion = await svcLocal.orderByCalificacion();
+    return res.status(200).json(LocalesOrderByCalificacion)
+})
+
 //Usuarios
 app.get('/usuarios',async (req,res) =>{
     const UsuariosGetAll = await svcUsuario.getAll();
@@ -70,6 +85,15 @@ app.get('/usuario/:id',async (req,res) =>{
         return res.status(404).send('Usuario inexistente')
     } else {
         return res.status(200).json(UsuariosGetById)
+    }
+})
+
+app.get('/usuario/email/:email',async (req,res) =>{
+    const UsuariosGetByEmail = await svcUsuario.getByEmail(req.params['email']);
+    if (UsuariosGetByEmail.length == 0) {
+        return res.status(404).send('Usuario inexistente')
+    } else {
+        return res.status(200).json(UsuariosGetByEmail)
     }
 })
 
