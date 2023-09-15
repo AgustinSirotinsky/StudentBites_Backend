@@ -91,7 +91,7 @@ app.get('/usuario/:id',async (req,res) =>{
 app.get('/usuario/email/:email',async (req,res) =>{
     const UsuariosGetByEmail = await svcUsuario.getByEmail(req.params['email']);
     if (UsuariosGetByEmail.length == 0) {
-        return res.status(404).send('Usuario inexistente')
+        return res.status(404).send(UsuariosGetByEmail)
     } else {
         return res.status(200).json(UsuariosGetByEmail)
     }

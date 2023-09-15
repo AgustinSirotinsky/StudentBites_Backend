@@ -145,7 +145,7 @@ orderByCalificacion = async () => {
     console.log('Estoy en LocalService.orderByCalificacion()');
     try {
         let pool = await sql.connect(config);
-       let result = await pool.request().query("SELECT * FROM Local Order By Calificacion");
+       let result = await pool.request().query("SELECT * FROM Local Order By Calificacion DESC");
        returnArray = result.recordsets[0];
     }
     catch (error){
