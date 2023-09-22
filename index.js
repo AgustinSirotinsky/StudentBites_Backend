@@ -3,7 +3,7 @@ import bodyParser from "body-parser"
 import cors from 'cors'
 import jwtservice from "./middleware/middleware.js"
 
-import LocalService from './src/services/local-services.js'
+import LocalService from './src/services/local-services.js';
 import UsuarioService from "./src/services/usuario-services.js";
 import ReseñaService from "./src/services/reseña-services.js";
 
@@ -15,7 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const port = 3000;
-const auth = new jwtservice()
+const auth = new jwtservice();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -97,6 +97,15 @@ app.get('/usuario/email/:email',async (req,res) =>{
     }
 })
 
+app.get('/usuario/nombre/:nombre',async (req,res) =>{
+    const UsuarioGetByNombre = await svcUsuario.getByNombre(req.params['nombre']);
+    if (UsuarioGetByNombre.length == 0) {
+        return res.status(404).send(UsuarioGetByNombre)
+    } else {
+        return res.status(200).json(UsuarioGetByNombre)
+    }
+})
+
 app.get('/usuario/seguidos/:id',async (req,res) =>{
     const UsuariosGetSeguidos = await svcUsuario.getSeguidos(req.params['id']);
     if (UsuariosGetSeguidos.length == 0) {
@@ -120,7 +129,10 @@ app.post('/login',async (req, res) => {
         return res.status(404).send('Error en la autenticacion')
     }
     else {
-        return res.status(200).json(Usuario)
+        return res.status(200).json({
+            successful: auth.createToken(Usuario),
+            done: "Login correct"
+          });
     }
 })
 

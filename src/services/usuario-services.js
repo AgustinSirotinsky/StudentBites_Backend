@@ -50,6 +50,24 @@ getByEmail = async (email) => {
     console.log(returnEntity)
 }
 
+getByNombre = async (nombre) => {
+    let returnEntity=null;
+    console.log('Estoy en UsuarioService.getByNombre()');
+    console.log(nombre)
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request()
+            .input('pNombre', sql.VarChar, nombre)
+            .query('SELECT * FROM Usuario WHERE Usuario = @pNombre');
+        returnEntity = result.recordsets[0];
+    }
+    catch (error){
+        console.log(error)
+    }
+    return returnEntity;
+    console.log(returnEntity)
+}
+
 auth = async (data) => {
     let returnEntity=null;
     console.log('Estoy en UsuarioService.auth()');
