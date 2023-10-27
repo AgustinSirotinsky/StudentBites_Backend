@@ -58,6 +58,11 @@ app.get('/local/:id',async (req,res) =>{
     }
 })
 
+app.get('/local/nombre/:Nombre',async (req,res) => {
+    const LocalGetByNombre = await svcLocal.getByNombre(req.params['Nombre']);
+        return res.status(200).json(LocalGetByNombre)
+})
+
 app.get('/locales/orderByPrecio',async (req,res) =>{
     const LocalesOrderByPrecio = await svcLocal.orderByPrecio();
     return res.status(200).json(LocalesOrderByPrecio)

@@ -33,9 +33,9 @@ getById = async (id) => {
     return returnEntity;
 }
 
-getTitle = async () => {
+getNombre = async () => {
     let returnArray = null;
-    console.log('Estoy en LocalService.getTitle()');
+    console.log('Estoy en LocalService.getNombre()');
     try {
         let pool = await sql.connect(config);
        let result = await pool.request().query("SELECT ID,Nombre FROM Local");
@@ -111,6 +111,21 @@ insert = async (Local) => {
     }
     return rowsAffected;
 }
+getByNombre = async (Nombre) => {
+    let returnArray=null;
+    console.log('Estoy en LocalService.getByNombre()');
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request()
+        .input('pNombre', sql.VarChar, Local?.Nombre ?? '')
+        .query("SELECT * FROM Local WHERE Nombre LIKE '@pNombre%'")
+        returnArray = result.recordsets[0];
+    }
+    catch(error){
+        console.log(error)
+    }
+    return returnArray;
+}
 
 orderByPrecio = async () => {
     let returnArray = null;
@@ -153,7 +168,6 @@ orderByCalificacion = async () => {
     }
     return returnArray;
     }
-
 
 }
 export default LocalService
