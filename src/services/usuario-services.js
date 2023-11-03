@@ -65,7 +65,6 @@ getByNombre = async (nombre) => {
         console.log(error)
     }
     return returnEntity;
-    console.log(returnEntity)
 }
 
 auth = async (data) => {

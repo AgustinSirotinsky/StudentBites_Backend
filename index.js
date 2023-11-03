@@ -102,14 +102,14 @@ app.get('/usuario/email/:email',async (req,res) =>{
     }
 })
 
-app.get('/usuario/nombre/:nombre',async (req,res) =>{
-    const UsuarioGetByNombre = await svcUsuario.getByNombre(req.params['nombre']);
-    if (UsuarioGetByNombre.length == 0) {
-        return res.status(404).send(UsuarioGetByNombre)
-    } else {
-        return res.status(200).json(UsuarioGetByNombre)
-    }
-})
+// app.get('/usuario/nombre/:nombre',async (req,res) =>{
+//     const UsuarioGetByNombre = await svcUsuario.getByNombre(req.params['nombre']);
+//     if (UsuarioGetByNombre.length == 0) {
+//         return res.status(404).send(UsuarioGetByNombre)
+//     } else {
+//         return res.status(200).json(UsuarioGetByNombre)
+//     }
+// })
 
 app.get('/usuario/seguidos/:id',async (req,res) =>{
     const UsuariosGetSeguidos = await svcUsuario.getSeguidos(req.params['id']);

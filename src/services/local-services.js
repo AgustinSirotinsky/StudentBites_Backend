@@ -1,5 +1,6 @@
 import config from '../../dbconfig-env.js';
 import sql from 'mssql'
+// import Local from '../models/Local.js'
 class LocalService {
 
 getAll = async () => {
@@ -117,8 +118,8 @@ getByNombre = async (Nombre) => {
     try {
         let pool = await sql.connect(config);
         let result = await pool.request()
-        .input('pNombre', sql.VarChar, Local?.Nombre ?? '')
-        .query("SELECT * FROM Local WHERE Nombre LIKE '@pNombre%'")
+    .input('pNombre', sql.VarChar, Nombre)
+    .query("SELECT * FROM Local WHERE Nombre LIKE '%' + @pNombre + '%'");
         returnArray = result.recordsets[0];
     }
     catch(error){
