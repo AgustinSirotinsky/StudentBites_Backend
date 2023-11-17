@@ -120,31 +120,31 @@ app.get('/usuario/seguidos/:id',async (req,res) =>{
     }
 })
 
-app.post('/login',async (req, res) => {
-    let data = req.body;
-    let Usuario=null;
-        //Es necesario que el post tenga en el body "email" y "password", si no se llaman asi exactamente la api da error y se cae
-    if (data.email==null || data.password==null){
-        res.send("Mail o Password Null")
-    }
-    else {
-        Usuario=await svcUsuario.auth(data)
-    }
-        if (Usuario.length==0){
-        return res.status(404).send('Error en la autenticacion')
-    }
-    else {
-        return res.status(200).json({
-            successful: auth.createToken(Usuario),
-            done: "Login correct"
-          });
-    }
-})
+// app.post('/login',async (req, res) => {
+//     let data = req.body;
+//     let Usuario=null;
+//         //Es necesario que el post tenga en el body "email" y "password", si no se llaman asi exactamente la api da error y se cae
+//     if (data.email==null || data.password==null){
+//         res.send("Mail o Password Null")
+//     }
+//     else {
+//         Usuario=await svcUsuario.auth(data)
+//     }
+//         if (Usuario.length==0){
+//         return res.status(404).send('Error en la autenticacion')
+//     }
+//     else {
+//         return res.status(200).json({
+//             successful: auth.createToken(Usuario),
+//             done: "Login correct"
+//         });
+//     }
+// })
 
 app.post('/usuario/insert', async (req, res) => {
     let data = req.body;
     let Usuario=null;
-    if (data.Email == null || data.Usuario == null || data.Contraseña == null || data.Foto == null){
+    if (data.Email == null || data.Usuario == null || data.Contraseña == null || data.Foto == null || data.Edad == null){
         res.send("undefined")
     }
     else {

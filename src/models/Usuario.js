@@ -5,7 +5,8 @@ class Usuario{
     Contraseña;
     Foto;
     isBanned;
-    IDSeguidos
+    IDSeguidos;
+    Edad;
 }
 
 export default Usuario

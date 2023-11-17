@@ -94,7 +94,8 @@ insert = async (data) => {
             .input('pUsuario', sql.VarChar, data.Usuario)
             .input('pContraseña', sql.VarChar, data.Contraseña)
             .input('pFoto', sql.VarChar, data.Foto)
-            .query('INSERT INTO Usuario (Email,Usuario,Contraseña,Foto,isBanned) VALUES (@pEmail, @pUsuario, @pContraseña, @pFoto, 0)')
+            .input('pEdad', sql.VarChar, data.Edad)
+            .query('INSERT INTO Usuario (Email,Usuario,Contraseña,Foto,isBanned,Edad) VALUES (@pEmail, @pUsuario, @pContraseña, @pFoto, 0, @pEdad)')
     }
     catch (error){
         console.log(error)
